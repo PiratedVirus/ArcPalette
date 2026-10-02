@@ -8,34 +8,47 @@
   const api = globalThis.browser ?? globalThis.chrome;
 
   const CSS = `
+    /* Liquid Glass: a translucent, light-refracting material with a specular rim. */
     :host, .ap-root {
-      --ap-bg: rgba(250, 250, 250, 0.98);
-      --ap-text: #1d1d1f;
-      --ap-muted: #6e6e73;
-      --ap-faint: #8e8e93;
-      --ap-line: rgba(0, 0, 0, 0.08);
-      --ap-section: rgba(0, 0, 0, 0.025);
-      --ap-hover: rgba(0, 0, 0, 0.04);
-      --ap-selected: #e3ebfa;
-      --ap-footer: #f2f2f4;
-      --ap-scrim: rgba(60, 60, 67, 0.28);
-      --ap-shadow: 0 24px 64px rgba(0, 0, 0, 0.22), 0 2px 8px rgba(0, 0, 0, 0.1);
-      --ap-mark: rgba(175, 82, 222, 0.25);
+      --ap-text: rgba(0, 0, 0, 0.88);
+      --ap-muted: rgba(0, 0, 0, 0.55);
+      --ap-faint: rgba(0, 0, 0, 0.38);
+      --ap-glass: rgba(255, 255, 255, 0.38);
+      --ap-glass-filter: blur(30px) saturate(190%) brightness(1.06);
+      --ap-rim-strong: rgba(255, 255, 255, 0.95);
+      --ap-rim-weak: rgba(255, 255, 255, 0.12);
+      --ap-sheen: rgba(255, 255, 255, 0.55);
+      --ap-hairline: rgba(0, 0, 0, 0.07);
+      --ap-hover: rgba(255, 255, 255, 0.28);
+      --ap-selected: rgba(255, 255, 255, 0.62);
+      --ap-selected-rim: rgba(255, 255, 255, 0.9);
+      --ap-selected-shadow: 0 1px 2px rgba(0, 0, 0, 0.06), 0 4px 14px rgba(0, 0, 0, 0.06);
+      --ap-icon-tile: rgba(255, 255, 255, 0.55);
+      --ap-key: rgba(255, 255, 255, 0.5);
+      --ap-scrim: rgba(255, 255, 255, 0.06);
+      --ap-shadow: 0 0 0 0.5px rgba(0, 0, 0, 0.1), 0 30px 80px rgba(0, 0, 0, 0.18), 0 8px 24px rgba(0, 0, 0, 0.08);
+      --ap-mark: rgba(10, 132, 255, 0.22);
     }
     @media (prefers-color-scheme: dark) {
       :host, .ap-root {
-        --ap-bg: rgba(38, 38, 40, 0.98);
-        --ap-text: #f5f5f7;
-        --ap-muted: #a1a1a6;
-        --ap-faint: #8e8e93;
-        --ap-line: rgba(255, 255, 255, 0.09);
-        --ap-section: rgba(255, 255, 255, 0.03);
-        --ap-hover: rgba(255, 255, 255, 0.05);
-        --ap-selected: rgba(64, 132, 255, 0.28);
-        --ap-footer: rgba(255, 255, 255, 0.04);
-        --ap-scrim: rgba(0, 0, 0, 0.45);
-        --ap-shadow: 0 24px 64px rgba(0, 0, 0, 0.55), 0 0 0 1px rgba(255, 255, 255, 0.08);
-        --ap-mark: rgba(191, 120, 255, 0.4);
+        --ap-text: rgba(255, 255, 255, 0.94);
+        --ap-muted: rgba(255, 255, 255, 0.58);
+        --ap-faint: rgba(255, 255, 255, 0.4);
+        --ap-glass: rgba(28, 28, 32, 0.42);
+        --ap-glass-filter: blur(30px) saturate(170%) brightness(0.9);
+        --ap-rim-strong: rgba(255, 255, 255, 0.42);
+        --ap-rim-weak: rgba(255, 255, 255, 0.04);
+        --ap-sheen: rgba(255, 255, 255, 0.1);
+        --ap-hairline: rgba(255, 255, 255, 0.08);
+        --ap-hover: rgba(255, 255, 255, 0.06);
+        --ap-selected: rgba(255, 255, 255, 0.14);
+        --ap-selected-rim: rgba(255, 255, 255, 0.22);
+        --ap-selected-shadow: 0 1px 2px rgba(0, 0, 0, 0.25);
+        --ap-icon-tile: rgba(255, 255, 255, 0.1);
+        --ap-key: rgba(255, 255, 255, 0.1);
+        --ap-scrim: rgba(0, 0, 0, 0.18);
+        --ap-shadow: 0 0 0 0.5px rgba(0, 0, 0, 0.6), 0 30px 80px rgba(0, 0, 0, 0.45), 0 8px 24px rgba(0, 0, 0, 0.25);
+        --ap-mark: rgba(10, 132, 255, 0.4);
       }
     }
 
@@ -55,38 +68,72 @@
     }
     .ap-root *, .ap-root *::before, .ap-root *::after { box-sizing: border-box; }
 
+    /* Light scrim: the page should stay visible so the glass has something to bend. */
     .ap-scrim {
       position: absolute;
       inset: 0;
       background: var(--ap-scrim);
-      -webkit-backdrop-filter: blur(8px) saturate(120%);
-      backdrop-filter: blur(8px) saturate(120%);
-      animation: ap-fade 120ms ease-out;
+      -webkit-backdrop-filter: blur(2px);
+      backdrop-filter: blur(2px);
+      animation: ap-fade 160ms ease-out;
     }
     .ap-page .ap-scrim { background: transparent; backdrop-filter: none; -webkit-backdrop-filter: none; }
 
     .ap-card {
       position: relative;
-      width: min(640px, 100%);
+      width: min(660px, 100%);
       max-height: 74vh;
       display: flex;
       flex-direction: column;
-      background: var(--ap-bg);
-      border-radius: 12px;
+      padding: 6px;
+      border-radius: 28px;
+      background: var(--ap-glass);
+      -webkit-backdrop-filter: var(--ap-glass-filter);
+      backdrop-filter: var(--ap-glass-filter);
       box-shadow: var(--ap-shadow);
-      overflow: hidden;
-      animation: ap-pop 140ms cubic-bezier(.2, .9, .3, 1.1);
+      isolation: isolate;
+      animation: ap-pop 260ms cubic-bezier(.2, 1.25, .35, 1);
+      transform-origin: 50% 0;
+    }
+    /* Specular rim: bright where light hits (top-left, bottom-right), fading elsewhere. */
+    .ap-card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      padding: 1px;
+      background: linear-gradient(140deg,
+        var(--ap-rim-strong) 0%, var(--ap-rim-weak) 28%,
+        var(--ap-rim-weak) 70%, var(--ap-rim-strong) 100%);
+      -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+      -webkit-mask-composite: xor;
+      mask-composite: exclude;
+      pointer-events: none;
+      z-index: 3;
+    }
+    /* Soft sheen across the top, like light pooling in the glass. */
+    .ap-card::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      background:
+        radial-gradient(120% 60% at 20% -10%, var(--ap-sheen), transparent 60%),
+        linear-gradient(180deg, var(--ap-sheen) 0, transparent 2px);
+      opacity: 0.7;
+      pointer-events: none;
+      z-index: -1;
     }
 
     .ap-input {
       all: unset;
       display: block;
       width: 100%;
-      padding: 15px 18px;
-      font: 400 16px/1.3 -apple-system, BlinkMacSystemFont, "SF Pro Text", sans-serif;
+      padding: 13px 16px 12px;
+      font: 400 18px/1.3 -apple-system, BlinkMacSystemFont, "SF Pro Display", sans-serif;
+      letter-spacing: -0.01em;
       color: var(--ap-text);
       caret-color: #0a84ff;
-      border-bottom: 1px solid var(--ap-line);
     }
     .ap-input::placeholder { color: var(--ap-faint); }
     .ap-input::selection { background: var(--ap-mark); }
@@ -95,50 +142,63 @@
       overflow-y: auto;
       overscroll-behavior: contain;
       flex: 1 1 auto;
+      margin-top: 2px;
+      padding-top: 4px;
+      border-top: 1px solid var(--ap-hairline);
+      scrollbar-width: thin;
     }
     .ap-list:empty { display: none; }
 
     .ap-section {
-      padding: 9px 18px 6px;
-      font-size: 10.5px;
+      padding: 10px 14px 4px;
+      font-size: 11px;
       font-weight: 600;
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
+      letter-spacing: 0.02em;
       color: var(--ap-muted);
-      background: var(--ap-section);
-      border-top: 1px solid var(--ap-line);
     }
-    .ap-section:first-child { border-top: 0; }
 
     .ap-item {
       position: relative;
       display: flex;
       align-items: center;
       gap: 12px;
-      padding: 8px 18px;
+      padding: 7px 14px 7px 16px;
       min-height: 50px;
+      border-radius: 16px;
       cursor: default;
+      transition: background-color 120ms ease, box-shadow 120ms ease;
     }
-    .ap-item.ap-compact { min-height: 35px; padding-top: 6px; padding-bottom: 6px; }
+    .ap-item.ap-compact { min-height: 38px; padding-top: 5px; padding-bottom: 5px; }
     .ap-item:hover { background: var(--ap-hover); }
-    .ap-item.ap-sel { background: var(--ap-selected); }
+    .ap-item.ap-sel {
+      background: var(--ap-selected);
+      box-shadow: inset 0 0 0 0.5px var(--ap-selected-rim), inset 0 1px 0 var(--ap-selected-rim), var(--ap-selected-shadow);
+    }
+    /* Open tabs: a small coloured capsule instead of a hard edge stripe. */
     .ap-item.ap-tab::before {
       content: "";
       position: absolute;
-      left: 0; top: 0; bottom: 0;
-      width: 3px;
+      left: 5px;
+      top: 50%;
+      width: 4px;
+      height: 20px;
+      margin-top: -10px;
+      border-radius: 2px;
       background: var(--ap-accent, #8e8e93);
+      opacity: 0.85;
     }
 
     .ap-icon {
-      flex: 0 0 18px;
-      width: 18px;
-      height: 18px;
+      flex: 0 0 28px;
+      width: 28px;
+      height: 28px;
       display: grid;
       place-items: center;
-      border-radius: 4px;
+      border-radius: 9px;
       overflow: hidden;
-      font-size: 10px;
+      background: var(--ap-icon-tile);
+      box-shadow: inset 0 0 0 0.5px var(--ap-hairline);
+      font-size: 12px;
       font-weight: 700;
       color: #fff;
     }
@@ -156,21 +216,33 @@
 
     .ap-footer {
       display: flex;
-      align-items: flex-start;
+      align-items: center;
       gap: 8px;
-      padding: 9px 18px;
+      margin-top: 4px;
+      padding: 9px 12px 6px;
       font-size: 12px;
       color: var(--ap-muted);
-      background: var(--ap-footer);
-      border-top: 1px solid var(--ap-line);
+      border-top: 1px solid var(--ap-hairline);
     }
     .ap-footer span { min-width: 0; overflow-wrap: anywhere; }
-    .ap-footer kbd { font: inherit; opacity: 0.8; }
+    .ap-footer kbd {
+      flex: none;
+      font: 600 11px/1 -apple-system, sans-serif;
+      padding: 4px 7px;
+      border-radius: 999px;
+      background: var(--ap-key);
+      box-shadow: inset 0 0 0 0.5px var(--ap-selected-rim), inset 0 1px 0 var(--ap-selected-rim);
+    }
 
     @keyframes ap-fade { from { opacity: 0; } }
-    @keyframes ap-pop { from { opacity: 0; transform: translateY(-6px) scale(0.985); } }
+    @keyframes ap-pop { from { opacity: 0; transform: translateY(-8px) scale(0.96); } }
     @media (prefers-reduced-motion: reduce) {
       .ap-scrim, .ap-card { animation: none; }
+      .ap-item { transition: none; }
+    }
+    /* If the system asks for less transparency, fall back to a solid surface. */
+    @media (prefers-reduced-transparency: reduce) {
+      .ap-card { background: Canvas; -webkit-backdrop-filter: none; backdrop-filter: none; }
     }
   `;
 
