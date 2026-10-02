@@ -1,0 +1,601 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 110;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		0DDEEC97307014070039A96B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DDEEC96307014070039A96B /* AppDelegate.swift */; };
+		0DDEEC9B307014070039A96B /* Main.html in Resources */ = {isa = PBXBuildFile; fileRef = 0DDEEC99307014070039A96B /* Main.html */; };
+		0DDEEC9D307014070039A96B /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 0DDEEC9C307014070039A96B /* Icon.png */; };
+		0DDEEC9F307014070039A96B /* Style.css in Resources */ = {isa = PBXBuildFile; fileRef = 0DDEEC9E307014070039A96B /* Style.css */; };
+		0DDEECA1307014070039A96B /* Script.js in Resources */ = {isa = PBXBuildFile; fileRef = 0DDEECA0307014070039A96B /* Script.js */; };
+		0DDEECA3307014070039A96B /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DDEECA2307014070039A96B /* ViewController.swift */; };
+		0DDEECA6307014070039A96B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0DDEECA4307014070039A96B /* Main.storyboard */; };
+		0DDEECA8307014090039A96B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0DDEECA7307014090039A96B /* Assets.xcassets */; };
+		0DDEECAF307014090039A96B /* Arc Palette Extension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 0DDEECAE307014090039A96B /* Arc Palette Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		0DDEECB4307014090039A96B /* SafariWebExtensionHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DDEECB3307014090039A96B /* SafariWebExtensionHandler.swift */; };
+		0DDEECC73070140A0039A96B /* palette.js in Resources */ = {isa = PBXBuildFile; fileRef = 0DDEECC03070140A0039A96B /* palette.js */; };
+		0DDEECC83070140A0039A96B /* background.js in Resources */ = {isa = PBXBuildFile; fileRef = 0DDEECC13070140A0039A96B /* background.js */; };
+		0DDEECC93070140A0039A96B /* newtab.js in Resources */ = {isa = PBXBuildFile; fileRef = 0DDEECC23070140A0039A96B /* newtab.js */; };
+		0DDEECCA3070140A0039A96B /* newtab.html in Resources */ = {isa = PBXBuildFile; fileRef = 0DDEECC33070140A0039A96B /* newtab.html */; };
+		0DDEECCB3070140A0039A96B /* icons in Resources */ = {isa = PBXBuildFile; fileRef = 0DDEECC43070140A0039A96B /* icons */; };
+		0DDEECCC3070140A0039A96B /* manifest.json in Resources */ = {isa = PBXBuildFile; fileRef = 0DDEECC53070140A0039A96B /* manifest.json */; };
+		0DDEECCD3070140A0039A96B /* content.js in Resources */ = {isa = PBXBuildFile; fileRef = 0DDEECC63070140A0039A96B /* content.js */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		0DDEECB0307014090039A96B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 0DDEEC8B307014070039A96B /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 0DDEECAD307014090039A96B;
+			remoteInfo = "Arc Palette Extension";
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		0DDEECBB307014090039A96B /* Embed Foundation Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			dstPath = "";
+			dstSubfolder = PlugIns;
+			files = (
+				0DDEECAF307014090039A96B /* Arc Palette Extension.appex in Embed Foundation Extensions */,
+			);
+			name = "Embed Foundation Extensions";
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		0DDEEC93307014070039A96B /* Arc Palette.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Arc Palette.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		0DDEEC96307014070039A96B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		0DDEEC9A307014070039A96B /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.html; name = Base; path = Base.lproj/Main.html; sourceTree = "<group>"; };
+		0DDEEC9C307014070039A96B /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon.png; sourceTree = "<group>"; };
+		0DDEEC9E307014070039A96B /* Style.css */ = {isa = PBXFileReference; lastKnownFileType = text.css; path = Style.css; sourceTree = "<group>"; };
+		0DDEECA0307014070039A96B /* Script.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = Script.js; sourceTree = "<group>"; };
+		0DDEECA2307014070039A96B /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		0DDEECA5307014070039A96B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		0DDEECA7307014090039A96B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		0DDEECA9307014090039A96B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		0DDEECAE307014090039A96B /* Arc Palette Extension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "Arc Palette Extension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
+		0DDEECB3307014090039A96B /* SafariWebExtensionHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafariWebExtensionHandler.swift; sourceTree = "<group>"; };
+		0DDEECB5307014090039A96B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		0DDEECC03070140A0039A96B /* palette.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; name = palette.js; path = ../../extension/palette.js; sourceTree = "<group>"; };
+		0DDEECC13070140A0039A96B /* background.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; name = background.js; path = ../../extension/background.js; sourceTree = "<group>"; };
+		0DDEECC23070140A0039A96B /* newtab.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; name = newtab.js; path = ../../extension/newtab.js; sourceTree = "<group>"; };
+		0DDEECC33070140A0039A96B /* newtab.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; name = newtab.html; path = ../../extension/newtab.html; sourceTree = "<group>"; };
+		0DDEECC43070140A0039A96B /* icons */ = {isa = PBXFileReference; lastKnownFileType = folder; name = icons; path = ../../extension/icons; sourceTree = "<group>"; };
+		0DDEECC53070140A0039A96B /* manifest.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; name = manifest.json; path = ../../extension/manifest.json; sourceTree = "<group>"; };
+		0DDEECC63070140A0039A96B /* content.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; name = content.js; path = ../../extension/content.js; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		0DDEEC90307014070039A96B /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			files = (
+			);
+		};
+		0DDEECAB307014090039A96B /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			files = (
+			);
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		0DDEEC8A307014070039A96B = {
+			isa = PBXGroup;
+			children = (
+				0DDEEC95307014070039A96B /* Arc Palette */,
+				0DDEECB2307014090039A96B /* Arc Palette Extension */,
+				0DDEEC94307014070039A96B /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		0DDEEC94307014070039A96B /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				0DDEEC93307014070039A96B /* Arc Palette.app */,
+				0DDEECAE307014090039A96B /* Arc Palette Extension.appex */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		0DDEEC95307014070039A96B /* Arc Palette */ = {
+			isa = PBXGroup;
+			children = (
+				0DDEEC96307014070039A96B /* AppDelegate.swift */,
+				0DDEECA2307014070039A96B /* ViewController.swift */,
+				0DDEECA4307014070039A96B /* Main.storyboard */,
+				0DDEECA7307014090039A96B /* Assets.xcassets */,
+				0DDEECA9307014090039A96B /* Info.plist */,
+				0DDEEC98307014070039A96B /* Resources */,
+			);
+			path = "Arc Palette";
+			sourceTree = "<group>";
+		};
+		0DDEEC98307014070039A96B /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				0DDEEC99307014070039A96B /* Main.html */,
+				0DDEEC9C307014070039A96B /* Icon.png */,
+				0DDEEC9E307014070039A96B /* Style.css */,
+				0DDEECA0307014070039A96B /* Script.js */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		0DDEECB2307014090039A96B /* Arc Palette Extension */ = {
+			isa = PBXGroup;
+			children = (
+				0DDEECBF3070140A0039A96B /* Resources */,
+				0DDEECB3307014090039A96B /* SafariWebExtensionHandler.swift */,
+				0DDEECB5307014090039A96B /* Info.plist */,
+			);
+			path = "Arc Palette Extension";
+			sourceTree = "<group>";
+		};
+		0DDEECBF3070140A0039A96B /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				0DDEECC03070140A0039A96B /* palette.js */,
+				0DDEECC13070140A0039A96B /* background.js */,
+				0DDEECC23070140A0039A96B /* newtab.js */,
+				0DDEECC33070140A0039A96B /* newtab.html */,
+				0DDEECC43070140A0039A96B /* icons */,
+				0DDEECC53070140A0039A96B /* manifest.json */,
+				0DDEECC63070140A0039A96B /* content.js */,
+			);
+			name = Resources;
+			path = "Arc Palette Extension";
+			sourceTree = SOURCE_ROOT;
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		0DDEEC92307014070039A96B /* Arc Palette */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 0DDEECBC307014090039A96B /* Build configuration list for PBXNativeTarget "Arc Palette" */;
+			buildPhases = (
+				0DDEEC8F307014070039A96B /* Sources */,
+				0DDEEC90307014070039A96B /* Frameworks */,
+				0DDEEC91307014070039A96B /* Resources */,
+				0DDEECBB307014090039A96B /* Embed Foundation Extensions */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				0DDEECB1307014090039A96B /* PBXTargetDependency */,
+			);
+			name = "Arc Palette";
+			productName = "Arc Palette";
+			productReference = 0DDEEC93307014070039A96B /* Arc Palette.app */;
+			productType = "com.apple.product-type.application";
+		};
+		0DDEECAD307014090039A96B /* Arc Palette Extension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 0DDEECB8307014090039A96B /* Build configuration list for PBXNativeTarget "Arc Palette Extension" */;
+			buildPhases = (
+				0DDEECAA307014090039A96B /* Sources */,
+				0DDEECAB307014090039A96B /* Frameworks */,
+				0DDEECAC307014090039A96B /* Resources */,
+			);
+			buildRules = (
+			);
+			name = "Arc Palette Extension";
+			productName = "Arc Palette Extension";
+			productReference = 0DDEECAE307014090039A96B /* Arc Palette Extension.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		0DDEEC8B307014070039A96B /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 2700;
+				LastUpgradeCheck = 2700;
+				TargetAttributes = {
+					0DDEEC92307014070039A96B = {
+						CreatedOnToolsVersion = 27.0;
+					};
+					0DDEECAD307014090039A96B = {
+						CreatedOnToolsVersion = 27.0;
+					};
+				};
+			};
+			buildConfigurationList = 0DDEEC8E307014070039A96B /* Build configuration list for PBXProject "Arc Palette" */;
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 0DDEEC8A307014070039A96B;
+			minimizedProjectReferenceProxies = 1;
+			preferredProjectObjectVersion = 77;
+			productRefGroup = 0DDEEC94307014070039A96B /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				0DDEEC92307014070039A96B /* Arc Palette */,
+				0DDEECAD307014090039A96B /* Arc Palette Extension */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		0DDEEC91307014070039A96B /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			files = (
+				0DDEEC9D307014070039A96B /* Icon.png in Resources */,
+				0DDEECA6307014070039A96B /* Main.storyboard in Resources */,
+				0DDEECA1307014070039A96B /* Script.js in Resources */,
+				0DDEEC9B307014070039A96B /* Main.html in Resources */,
+				0DDEECA8307014090039A96B /* Assets.xcassets in Resources */,
+				0DDEEC9F307014070039A96B /* Style.css in Resources */,
+			);
+		};
+		0DDEECAC307014090039A96B /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			files = (
+				0DDEECC93070140A0039A96B /* newtab.js in Resources */,
+				0DDEECC83070140A0039A96B /* background.js in Resources */,
+				0DDEECC73070140A0039A96B /* palette.js in Resources */,
+				0DDEECCB3070140A0039A96B /* icons in Resources */,
+				0DDEECCC3070140A0039A96B /* manifest.json in Resources */,
+				0DDEECCD3070140A0039A96B /* content.js in Resources */,
+				0DDEECCA3070140A0039A96B /* newtab.html in Resources */,
+			);
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		0DDEEC8F307014070039A96B /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			files = (
+				0DDEECA3307014070039A96B /* ViewController.swift in Sources */,
+				0DDEEC97307014070039A96B /* AppDelegate.swift in Sources */,
+			);
+		};
+		0DDEECAA307014090039A96B /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			files = (
+				0DDEECB4307014090039A96B /* SafariWebExtensionHandler.swift in Sources */,
+			);
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		0DDEECB1307014090039A96B /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 0DDEECAD307014090039A96B /* Arc Palette Extension */;
+			targetProxy = 0DDEECB0307014090039A96B /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		0DDEEC99307014070039A96B /* Main.html */ = {
+			isa = PBXVariantGroup;
+			children = (
+				0DDEEC9A307014070039A96B /* Base */,
+			);
+			name = Main.html;
+			sourceTree = "<group>";
+		};
+		0DDEECA4307014070039A96B /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				0DDEECA5307014070039A96B /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		0DDEECB6307014090039A96B /* Debug configuration for PBXProject "Arc Palette" */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MACOSX_DEPLOYMENT_TARGET = 27.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		0DDEECB7307014090039A96B /* Release configuration for PBXProject "Arc Palette" */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MACOSX_DEPLOYMENT_TARGET = 27.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = macosx;
+				SWIFT_COMPILATION_MODE = wholemodule;
+			};
+			name = Release;
+		};
+		0DDEECB9307014090039A96B /* Debug configuration for PBXNativeTarget "Arc Palette Extension" */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				ENABLE_APP_SANDBOX = YES;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_USER_SELECTED_FILES = readonly;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "Arc Palette Extension/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = "Arc Palette Extension";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@executable_path/../../../../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 12.0;
+				MARKETING_VERSION = 1.0;
+				OTHER_LDFLAGS = (
+					"-framework",
+					SafariServices,
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.saurabhkulkarni.ArcPalette.Extension;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		0DDEECBA307014090039A96B /* Release configuration for PBXNativeTarget "Arc Palette Extension" */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				ENABLE_APP_SANDBOX = YES;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_USER_SELECTED_FILES = readonly;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "Arc Palette Extension/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = "Arc Palette Extension";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@executable_path/../../../../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 12.0;
+				MARKETING_VERSION = 1.0;
+				OTHER_LDFLAGS = (
+					"-framework",
+					SafariServices,
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.saurabhkulkarni.ArcPalette.Extension;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+		0DDEECBD307014090039A96B /* Debug configuration for PBXNativeTarget "Arc Palette" */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				ENABLE_APP_SANDBOX = YES;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_OUTGOING_NETWORK_CONNECTIONS = YES;
+				ENABLE_USER_SELECTED_FILES = readonly;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "Arc Palette/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = "Arc Palette";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				INFOPLIST_KEY_NSMainStoryboardFile = Main;
+				INFOPLIST_KEY_NSPrincipalClass = NSApplication;
+				INFOPLIST_KEY_NSViewGestureRecognizerIsExclusive = NO;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				OTHER_LDFLAGS = (
+					"-framework",
+					SafariServices,
+					"-framework",
+					WebKit,
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.saurabhkulkarni.ArcPalette;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				REGISTER_APP_GROUPS = YES;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		0DDEECBE307014090039A96B /* Release configuration for PBXNativeTarget "Arc Palette" */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				ENABLE_APP_SANDBOX = YES;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_OUTGOING_NETWORK_CONNECTIONS = YES;
+				ENABLE_USER_SELECTED_FILES = readonly;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "Arc Palette/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = "Arc Palette";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				INFOPLIST_KEY_NSMainStoryboardFile = Main;
+				INFOPLIST_KEY_NSPrincipalClass = NSApplication;
+				INFOPLIST_KEY_NSViewGestureRecognizerIsExclusive = NO;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				OTHER_LDFLAGS = (
+					"-framework",
+					SafariServices,
+					"-framework",
+					WebKit,
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.saurabhkulkarni.ArcPalette;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				REGISTER_APP_GROUPS = YES;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		0DDEEC8E307014070039A96B /* Build configuration list for PBXProject "Arc Palette" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				0DDEECB6307014090039A96B /* Debug configuration for PBXProject "Arc Palette" */,
+				0DDEECB7307014090039A96B /* Release configuration for PBXProject "Arc Palette" */,
+			);
+			defaultConfigurationName = Release;
+		};
+		0DDEECB8307014090039A96B /* Build configuration list for PBXNativeTarget "Arc Palette Extension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				0DDEECB9307014090039A96B /* Debug configuration for PBXNativeTarget "Arc Palette Extension" */,
+				0DDEECBA307014090039A96B /* Release configuration for PBXNativeTarget "Arc Palette Extension" */,
+			);
+			defaultConfigurationName = Release;
+		};
+		0DDEECBC307014090039A96B /* Build configuration list for PBXNativeTarget "Arc Palette" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				0DDEECBD307014090039A96B /* Debug configuration for PBXNativeTarget "Arc Palette" */,
+				0DDEECBE307014090039A96B /* Release configuration for PBXNativeTarget "Arc Palette" */,
+			);
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 0DDEEC8B307014070039A96B /* Project object */;
+	validationLevel = 1;
+}
