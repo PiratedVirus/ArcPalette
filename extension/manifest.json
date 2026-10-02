@@ -23,8 +23,18 @@
   },
   "commands": {
     "toggle-palette": {
-      "suggested_key": { "default": "Alt+T", "mac": "Alt+T" },
+      "suggested_key": {
+        "default": "Alt+T",
+        "mac": "Alt+T"
+      },
       "description": "Open the command palette"
+    },
+    "copy-url": {
+      "suggested_key": {
+        "default": "Ctrl+Shift+C",
+        "mac": "Command+Shift+C"
+      },
+      "description": "Copy the current page's link"
     }
   },
   "chrome_url_overrides": {
@@ -32,13 +42,23 @@
   },
   "content_scripts": [
     {
-      "matches": ["<all_urls>"],
-      "js": ["palette.js", "content.js"],
+      "matches": [
+        "<all_urls>"
+      ],
+      "js": [
+        "palette.js",
+        "content.js"
+      ],
       "run_at": "document_start",
       "all_frames": false
     }
   ],
-  "permissions": ["tabs", "storage"],
+  "permissions": [
+    "tabs",
+    "storage",
+    "alarms",
+    "nativeMessaging"
+  ],
   "host_permissions": [
     "<all_urls>",
     "https://suggestqueries.google.com/*",

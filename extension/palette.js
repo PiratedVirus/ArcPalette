@@ -246,10 +246,96 @@
     }
   `;
 
-  const SEARCH_ICON =
-    '<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><circle cx="7" cy="7" r="4.6"/><path d="M10.4 10.4 14 14"/></svg>';
-  const GLOBE_ICON =
-    '<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4"><circle cx="8" cy="8" r="6.2"/><path d="M1.8 8h12.4M8 1.8c1.8 1.9 2.6 4 2.6 6.2S9.8 12.3 8 14.2C6.2 12.3 5.4 10.2 5.4 8S6.2 3.7 8 1.8Z"/></svg>';
+
+  // Styles for actions, pickers, the footer hint and toasts.
+  const EXTRA_CSS = `
+    .ap-input-row { display: flex; align-items: center; gap: 8px; padding-left: 12px; }
+    .ap-input-row .ap-input { padding-left: 4px; }
+    .ap-chip {
+      flex: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 5px 10px;
+      border-radius: 999px;
+      font: 600 12px/1 -apple-system, sans-serif;
+      color: var(--ap-text);
+      background: var(--ap-selected);
+      box-shadow: inset 0 0 0 0.5px var(--ap-selected-rim), inset 0 1px 0 var(--ap-selected-rim);
+    }
+    .ap-chip svg { width: 13px; height: 13px; }
+    .ap-chip[hidden] { display: none; }
+
+    .ap-hint {
+      flex: none;
+      margin-left: 8px;
+      font: 500 11.5px/1 -apple-system, sans-serif;
+      color: var(--ap-faint);
+    }
+    .ap-hint.ap-check { color: #0a84ff; font-size: 14px; }
+    .ap-action .ap-icon svg, .ap-archived .ap-icon svg { color: var(--ap-text); opacity: 0.75; }
+
+    .ap-empty { padding: 18px 14px; color: var(--ap-muted); font-size: 13px; text-align: center; }
+
+    .ap-footer-hint { margin-left: auto; flex: none; color: var(--ap-faint); }
+  `;
+
+  const TOAST_CSS = `
+    .ap-toast {
+      all: initial;
+      position: fixed;
+      top: 18px;
+      left: 50%;
+      z-index: 2147483647;
+      transform: translateX(-50%);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      max-width: min(520px, calc(100vw - 32px));
+      padding: 10px 16px;
+      border-radius: 999px;
+      font: 500 13px/1.3 -apple-system, BlinkMacSystemFont, sans-serif;
+      color: rgba(0, 0, 0, 0.85);
+      background: rgba(255, 255, 255, 0.55);
+      -webkit-backdrop-filter: blur(24px) saturate(190%);
+      backdrop-filter: blur(24px) saturate(190%);
+      box-shadow: 0 0 0 0.5px rgba(0, 0, 0, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.9), 0 10px 30px rgba(0, 0, 0, 0.15);
+      animation: ap-toast-in 240ms cubic-bezier(.2, 1.25, .35, 1);
+      transition: opacity 200ms ease, transform 200ms ease;
+    }
+    .ap-toast.ap-out { opacity: 0; transform: translate(-50%, -6px); }
+    .ap-toast svg { width: 14px; height: 14px; flex: none; }
+    @media (prefers-color-scheme: dark) {
+      .ap-toast {
+        color: rgba(255, 255, 255, 0.92);
+        background: rgba(40, 40, 44, 0.55);
+        box-shadow: 0 0 0 0.5px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.18), 0 10px 30px rgba(0, 0, 0, 0.4);
+      }
+    }
+    @keyframes ap-toast-in { from { opacity: 0; transform: translate(-50%, -10px) scale(0.96); } }
+    @media (prefers-reduced-motion: reduce) { .ap-toast { animation: none; transition: none; } }
+  `;
+
+  const svg = (body, sw = 1.5) =>
+    `<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="${sw}" stroke-linecap="round" stroke-linejoin="round">${body}</svg>`;
+
+  const ICONS = {
+    search: svg('<circle cx="7" cy="7" r="4.6"/><path d="M10.4 10.4 14 14"/>', 1.6),
+    globe: svg('<circle cx="8" cy="8" r="6.2"/><path d="M1.8 8h12.4M8 1.8c1.8 1.9 2.6 4 2.6 6.2S9.8 12.3 8 14.2C6.2 12.3 5.4 10.2 5.4 8S6.2 3.7 8 1.8Z"/>', 1.4),
+    link: svg('<path d="M6.8 9.2a2.6 2.6 0 0 0 3.7 0l2.2-2.2a2.6 2.6 0 0 0-3.7-3.7l-.9.9"/><path d="M9.2 6.8a2.6 2.6 0 0 0-3.7 0L3.3 9a2.6 2.6 0 0 0 3.7 3.7l.9-.9"/>'),
+    split: svg('<rect x="1.8" y="3" width="12.4" height="10" rx="2"/><path d="M8 3v10"/>'),
+    close: svg('<path d="M4.5 4.5l7 7M11.5 4.5l-7 7"/>'),
+    duplicate: svg('<rect x="5" y="5" width="8.5" height="8.5" rx="1.8"/><path d="M11 5V4a1.5 1.5 0 0 0-1.5-1.5H4A1.5 1.5 0 0 0 2.5 4v5.5A1.5 1.5 0 0 0 4 11h1"/>'),
+    reload: svg('<path d="M13 8a5 5 0 1 1-1.5-3.6"/><path d="M13 2.5v3h-3"/>'),
+    pin: svg('<path d="M6 2.5h4l-.6 3.5 2.1 2.2H4.5L6.6 6 6 2.5Z"/><path d="M8 8.2V13.5"/>'),
+    mute: svg('<path d="M2.5 6v4h2.5L8.5 13V3L5 6H2.5Z"/><path d="M11 6.2c.6.5 1 1.1 1 1.8s-.4 1.3-1 1.8"/>'),
+    window: svg('<rect x="1.8" y="2.8" width="12.4" height="10.4" rx="2"/><path d="M1.8 5.8h12.4"/>'),
+    newWindow: svg('<rect x="1.8" y="2.8" width="12.4" height="10.4" rx="2"/><path d="M8 6.5v4M6 8.5h4"/>'),
+    archive: svg('<rect x="1.8" y="2.8" width="12.4" height="3" rx="1"/><path d="M3 5.8v6.4A1 1 0 0 0 4 13.2h8a1 1 0 0 0 1-1V5.8M6.5 8.5h3"/>'),
+    clock: svg('<circle cx="8" cy="8" r="6"/><path d="M8 4.8V8l2.2 1.4"/>'),
+    trash: svg('<path d="M3 4.5h10M6.5 4.5V3h3v1.5M4.3 4.5l.6 8.2a1 1 0 0 0 1 .9h4.2a1 1 0 0 0 1-.9l.6-8.2"/>'),
+    check: svg('<path d="M3.5 8.5 6.5 11.5 12.5 4.5"/>', 1.8),
+  };
 
   // ---------- helpers ----------
 
@@ -279,12 +365,21 @@
     return (/^(localhost|\d{1,3}(\.\d{1,3}){3})/i.test(t) ? "http://" : "https://") + t;
   }
 
-  // Stable per-domain accent colour for the tab stripe and letter avatars.
+  // Stable per-domain accent colour for the tab capsule and letter avatars.
   function accentFor(url) {
     const h = hostOf(url) || url || "";
     let n = 0;
     for (const c of h) n = (n * 31 + c.charCodeAt(0)) >>> 0;
     return `hsl(${n % 360} 65% 52%)`;
+  }
+
+  function timeAgo(ts) {
+    const m = Math.round((Date.now() - ts) / 6e4);
+    if (m < 1) return "just now";
+    if (m < 60) return `${m}m ago`;
+    const h = Math.round(m / 60);
+    if (h < 24) return `${h}h ago`;
+    return `${Math.round(h / 24)}d ago`;
   }
 
   function el(tag, cls, text) {
@@ -306,12 +401,12 @@
 
   function iconNode(item) {
     const box = el("span", "ap-icon");
-    if (item.kind === "suggest" || item.kind === "search") {
-      box.innerHTML = SEARCH_ICON;
+    if (item.kind === "suggest") {
+      box.innerHTML = ICONS.search;
       return box;
     }
-    if (item.kind === "url") {
-      box.innerHTML = GLOBE_ICON;
+    if (item.kind === "action") {
+      box.innerHTML = ICONS[item.icon] ?? ICONS.search;
       return box;
     }
     const letter = () => {
@@ -335,6 +430,102 @@
     return box;
   }
 
+  // Must run synchronously inside the key/click handler so Safari treats it as user-initiated.
+  function copyText(text) {
+    try {
+      const ta = document.createElement("textarea");
+      ta.value = text;
+      ta.style.cssText = "position:fixed;top:0;left:0;opacity:0;";
+      document.documentElement.append(ta);
+      ta.select();
+      const ok = document.execCommand("copy");
+      ta.remove();
+      if (ok) return true;
+    } catch {}
+    try {
+      navigator.clipboard.writeText(text);
+      return true;
+    } catch {
+      return false;
+    }
+  }
+
+  // A small glass pill at the top of the page ("Link copied", "Tab archived").
+  let toastHost = null;
+  function toast(text, icon = "check") {
+    toastHost?.remove();
+    const host = document.createElement("arc-palette-toast");
+    host.style.cssText = "all: initial; position: fixed; z-index: 2147483647;";
+    const shadow = host.attachShadow({ mode: "closed" });
+    const style = el("style");
+    style.textContent = TOAST_CSS;
+    const pill = el("div", "ap-toast");
+    pill.setAttribute("role", "status");
+    if (icon && ICONS[icon]) pill.insertAdjacentHTML("afterbegin", ICONS[icon]);
+    pill.append(el("span", null, text));
+    shadow.append(style, pill);
+    (document.body ?? document.documentElement).append(host);
+    toastHost = host;
+    setTimeout(() => pill.classList.add("ap-out"), 1800);
+    setTimeout(() => {
+      host.remove();
+      if (toastHost === host) toastHost = null;
+    }, 2050);
+  }
+
+  // ---------- actions (the "do something" half of the command bar) ----------
+
+  const ARCHIVE_CHOICES = [
+    { hours: 12, label: "12 Hours" },
+    { hours: 24, label: "24 Hours" },
+    { hours: 168, label: "7 Days" },
+  ];
+
+  function actionsFor(ctx) {
+    const t = ctx?.target;
+    const current = ctx?.archiveAfterHours ?? 12;
+    const list = [
+      { id: "copy-url", title: "Copy Link", keys: "copy url link share", icon: "link", hint: "⌘⇧C", needsTab: true },
+      { id: "split", title: "Split View with Tab…", keys: "split view side by side tile two", icon: "split", picker: "split", needsTab: true },
+      { id: "close-tab", title: "Close Tab", keys: "close tab", icon: "close", needsTab: true },
+      { id: "duplicate-tab", title: "Duplicate Tab", keys: "duplicate copy clone tab", icon: "duplicate", needsTab: true },
+      { id: "reload-tab", title: "Reload Tab", keys: "reload refresh tab", icon: "reload", needsTab: true },
+      { id: "pin-tab", title: t?.pinned ? "Unpin Tab" : "Pin Tab", keys: "pin unpin tab", icon: "pin", needsTab: true },
+      { id: "mute-tab", title: t?.muted ? "Unmute Tab" : "Mute Tab", keys: "mute unmute sound audio tab", icon: "mute", needsTab: true },
+      { id: "move-to-window", title: "Move Tab to New Window", keys: "move tab new window detach", icon: "window", needsTab: true },
+      { id: "new-window", title: "New Window", keys: "new window", icon: "newWindow" },
+      { id: "archive-tab", title: "Archive Tab", keys: "archive tab close later", icon: "archive", needsTab: true },
+      {
+        id: "show-archive",
+        title: "Show Archived Tabs",
+        keys: "archive archived restore reopen closed",
+        icon: "archive",
+        picker: "archive",
+        hint: ctx?.archivedCount ? String(ctx.archivedCount) : "",
+      },
+      ...ARCHIVE_CHOICES.map((c) => ({
+        id: "auto-archive",
+        hours: c.hours,
+        title: `Auto-Archive Tabs After ${c.label}`,
+        keys: "auto archive settings timer",
+        icon: "clock",
+        checked: current === c.hours,
+      })),
+      { id: "auto-archive", hours: 0, title: "Turn Off Auto-Archive", keys: "auto archive off disable never", icon: "clock", checked: current === 0 },
+      { id: "clear-archive", title: "Clear Archived Tabs", keys: "clear empty archive delete", icon: "trash" },
+    ];
+    return list.filter((a) => !a.needsTab || t).map((a) => ({ ...a, kind: "action" }));
+  }
+
+  // Every query word must be the start of a word in the action's title or keywords.
+  function matchAction(q, action) {
+    const words = q.toLowerCase().split(/\s+/).filter(Boolean);
+    if (!words.length) return 1;
+    const hay = `${action.title} ${action.keys}`.toLowerCase().split(/[\s…]+/);
+    if (!words.every((w) => hay.some((h) => h.startsWith(w)))) return 0;
+    return action.title.toLowerCase().startsWith(q.toLowerCase()) ? 2 : 1;
+  }
+
   // ---------- the palette ----------
 
   /**
@@ -346,7 +537,7 @@
     const mode = opts.mode ?? "overlay";
 
     const style = el("style");
-    style.textContent = CSS;
+    style.textContent = CSS + EXTRA_CSS;
 
     const wrap = el("div", `ap-root ap-${mode}`);
     const scrim = el("div", "ap-scrim");
@@ -354,32 +545,45 @@
     card.setAttribute("role", "dialog");
     card.setAttribute("aria-label", "Command palette");
 
+    const inputRow = el("div", "ap-input-row");
+    const chip = el("span", "ap-chip");
+    chip.hidden = true;
     const input = el("input", "ap-input");
     input.type = "text";
-    input.placeholder = "Type to search tabs or enter URL…";
     input.spellcheck = false;
     input.autocomplete = "off";
     input.setAttribute("autocorrect", "off");
     input.setAttribute("autocapitalize", "off");
     input.setAttribute("role", "combobox");
     input.setAttribute("aria-expanded", "true");
+    inputRow.append(chip, input);
 
     const list = el("div", "ap-list");
     list.setAttribute("role", "listbox");
     const footer = el("div", "ap-footer");
 
-    card.append(input, list, footer);
+    card.append(inputRow, list, footer);
     wrap.append(scrim, card);
     root.append(style, wrap);
 
     let typed = ""; // what the user actually typed (without inline completion)
-    let local = { tabs: [], history: [] };
+    let local = { tabs: [], history: [], archived: [] };
     let suggestions = [];
+    let ctx = null; // the tab actions apply to, archive settings
+    let picker = null; // null | "split" | "archive"
+    let pickerItems = [];
     let items = [];
     let sel = -1; // -1 = act on the text in the box
     let seq = 0;
     let suggestTimer = null;
     let closed = false;
+    let lastPointer = { x: -1, y: -1 };
+
+    const PLACEHOLDERS = {
+      null: "Search tabs, history and actions, or enter a URL…",
+      split: "Pick a tab to show alongside this one…",
+      archive: "Search archived tabs…",
+    };
 
     function close() {
       if (closed) return;
@@ -394,14 +598,25 @@
       const mySeq = ++seq;
       const q = typed;
 
+      if (picker === "archive") {
+        const res = await send({ type: "listArchived", query: q });
+        if (mySeq !== seq || closed) return;
+        pickerItems = Array.isArray(res) ? res : [];
+        return render(false);
+      }
+
       const res = await send({ type: "searchLocal", query: q });
       if (mySeq !== seq || closed) return;
-      local = res && !res.error ? res : { tabs: [], history: [] };
+      local = res && !res.error ? res : { tabs: [], history: [], archived: [] };
+      if (picker === "split") {
+        pickerItems = local.tabs.filter((t) => t.tabId !== ctx?.target?.id);
+        return render(false);
+      }
       if (!q.trim()) suggestions = [];
       render(allowComplete);
 
       clearTimeout(suggestTimer);
-      if (q.trim() && !looksLikeUrl(q)) {
+      if (q.trim() && !looksLikeUrl(q) && !q.startsWith(">")) {
         suggestTimer = setTimeout(async () => {
           const s = await send({ type: "suggest", query: q });
           if (mySeq !== seq || closed) return;
@@ -413,11 +628,24 @@
       }
     }
 
+    function enterPicker(kind) {
+      picker = kind;
+      typed = "";
+      input.value = "";
+      sel = -1;
+      chip.hidden = !kind;
+      chip.innerHTML = kind === "split" ? ICONS.split : kind === "archive" ? ICONS.archive : "";
+      if (kind) chip.append(el("span", null, kind === "split" ? "Split View" : "Archived"));
+      input.placeholder = PLACEHOLDERS[kind];
+      input.focus();
+      refresh(false);
+    }
+
     // ----- inline completion (Arc / Safari address-bar style) -----
 
     function findCompletion() {
       const t = typed.trim().toLowerCase();
-      if (!t || /\s/.test(t) || t.length < 2) return null;
+      if (!t || /\s/.test(t) || t.length < 2 || t.startsWith(">")) return null;
       const candidates = [...local.tabs, ...local.history];
 
       // Prefer completing just the domain while no path has been typed.
@@ -440,16 +668,52 @@
     // ----- rendering -----
 
     function buildItems() {
+      if (picker) {
+        const label = picker === "split" ? "Open Tabs" : "Archived";
+        return pickerItems.length ? [{ section: label }, ...pickerItems] : [];
+      }
+
       const out = [];
-      const q = typed.trim();
+      const raw = typed.trim();
+      const commandMode = raw.startsWith(">");
+      const q = commandMode ? raw.slice(1).trim() : raw;
+
+      let actions = [];
+      if (commandMode || q.length >= 2) {
+        actions = actionsFor(ctx)
+          .map((a) => ({ a, s: matchAction(q, a) }))
+          .filter((x) => x.s > 0)
+          .sort((x, y) => y.s - x.s)
+          .map((x) => x.a);
+        if (!commandMode) actions = actions.slice(0, 4);
+      }
+      const pushActions = () => {
+        if (!actions.length) return;
+        out.push({ section: "Actions" });
+        out.push(...actions);
+      };
+
+      if (commandMode) {
+        pushActions();
+        return out;
+      }
+
+      // An action whose name starts with what you typed goes first ("clo" → Close Tab).
+      const actionsFirst = actions.some((a) => a.title.toLowerCase().startsWith(q.toLowerCase()));
+      if (actionsFirst) pushActions();
       if (local.tabs.length) {
         out.push({ section: "Open Tabs" });
-        local.tabs.forEach((t) => out.push({ ...t }));
+        out.push(...local.tabs);
       }
       if (local.history.length) {
         out.push({ section: "History" });
-        local.history.forEach((h) => out.push({ ...h }));
+        out.push(...local.history);
       }
+      if (local.archived?.length) {
+        out.push({ section: "Archived" });
+        out.push(...local.archived);
+      }
+      if (!actionsFirst) pushActions();
       const sugg = suggestions.filter((s) => s.toLowerCase() !== q.toLowerCase());
       if (q && !looksLikeUrl(q) && sugg.length) {
         out.push({ section: "Search Suggestions" });
@@ -458,11 +722,17 @@
       return out;
     }
 
+    function subtitleFor(item) {
+      if (item.kind === "archived") return `${stripUrl(item.url)} · ${timeAgo(item.archivedAt)}`;
+      if (item.url) return stripUrl(item.url);
+      return null;
+    }
+
     function render(allowComplete) {
       const prevKey = sel >= 0 ? keyOf(items[sel]) : null;
       items = buildItems();
 
-      if (allowComplete) {
+      if (allowComplete && !picker) {
         const comp = findCompletion();
         if (comp && comp.text.toLowerCase() !== typed.toLowerCase()) {
           input.value = typed + comp.text.slice(typed.trim().length);
@@ -470,29 +740,54 @@
         } else {
           input.value = typed;
         }
-        sel = comp?.item ? items.findIndex((i) => i.url === comp.item.url) : -1;
+        sel = comp?.item ? items.findIndex((i) => i.url === comp.item.url && i.kind !== "action") : -1;
       } else if (prevKey) {
         sel = items.findIndex((i) => keyOf(i) === prevKey);
       }
 
-      // Empty box: highlight the most recent tab, like the video.
-      if (!typed.trim() && sel < 0) sel = items.findIndex((i) => !i.section);
+      // Highlight the first row when there's nothing better to act on:
+      // an empty box, a picker, ">" command mode, or an action typed by name.
+      const firstRow = items.findIndex((i) => !i.section);
+      const firstIsStrongAction =
+        items[firstRow]?.kind === "action" && items[firstRow].title.toLowerCase().startsWith(typed.trim().toLowerCase());
+      if (sel < 0 && (!typed.trim() || picker || typed.trim().startsWith(">") || firstIsStrongAction)) sel = firstRow;
 
       list.textContent = "";
+      if (picker && !items.length) {
+        list.append(
+          el("div", "ap-empty", picker === "archive" ? "No archived tabs yet" : "No other open tabs to split with")
+        );
+      }
       items.forEach((item, idx) => {
         if (item.section) {
           list.append(el("div", "ap-section", item.section));
           return;
         }
-        const row = el("div", `ap-item ap-${item.kind}${item.kind === "suggest" ? " ap-compact" : ""}`);
+        const compact = item.kind === "suggest" || item.kind === "action";
+        const row = el("div", `ap-item ap-${item.kind}${compact ? " ap-compact" : ""}`);
         row.setAttribute("role", "option");
         row.dataset.idx = idx;
         if (item.kind === "tab") row.style.setProperty("--ap-accent", accentFor(item.url));
         const text = el("div", "ap-text");
         text.append(el("div", "ap-title", item.title));
-        if (item.url) text.append(el("div", "ap-url", stripUrl(item.url)));
+        const sub = subtitleFor(item);
+        if (sub) text.append(el("div", "ap-url", sub));
         row.append(iconNode(item), text);
-        row.addEventListener("mousemove", () => {
+        if (item.checked) {
+          const hint = el("span", "ap-hint ap-check");
+          hint.innerHTML = ICONS.check;
+          hint.querySelector("svg").style.cssText = "width:14px;height:14px";
+          row.append(hint);
+        } else if (item.hint) {
+          row.append(el("span", "ap-hint", item.hint));
+        }
+        row.addEventListener("mousemove", (e) => {
+          // Browsers fire mousemove when rows re-render under a resting cursor;
+          // only a real pointer movement should steal the keyboard selection.
+          const first = lastPointer.x === -1;
+          const still = e.screenX === lastPointer.x && e.screenY === lastPointer.y;
+          lastPointer = { x: e.screenX, y: e.screenY };
+          if (first || still) return;
           if (sel !== idx) select(idx, false);
         });
         row.addEventListener("mousedown", (e) => e.preventDefault()); // keep focus in the input
@@ -504,7 +799,7 @@
 
     function keyOf(item) {
       if (!item || item.section) return null;
-      return `${item.kind}|${item.tabId ?? ""}|${item.url ?? item.title}`;
+      return `${item.kind}|${item.id ?? ""}|${item.hours ?? ""}|${item.tabId ?? ""}|${item.url ?? item.title}`;
     }
 
     function paintSelection(scroll) {
@@ -520,17 +815,29 @@
     function renderFooter() {
       const item = sel >= 0 ? items[sel] : null;
       let label;
-      if (item?.kind === "tab") label = `Switch to tab: ${item.title}`;
-      else if (item?.kind === "history") label = `Open: ${item.url}`;
+      let hint = "";
+      if (picker === "split") {
+        label = item ? `Split view: ${ctx?.target?.title ?? "this tab"}  |  ${item.title}` : "Pick a tab";
+        hint = "esc to go back";
+      } else if (picker === "archive") {
+        label = item ? `Reopen: ${item.url}` : "Nothing archived matches";
+        hint = "esc to go back";
+      } else if (item?.kind === "tab") {
+        label = `Switch to tab: ${item.title}`;
+        if (ctx?.target && item.tabId !== ctx.target.id) hint = "⌘↩ split view";
+      } else if (item?.kind === "history") label = `Open: ${item.url}`;
+      else if (item?.kind === "archived") label = `Reopen: ${item.url}`;
       else if (item?.kind === "suggest") label = `Search for: ${item.title}`;
+      else if (item?.kind === "action") label = item.title;
       else {
         const text = input.value.trim();
-        if (!text) label = "Press Enter to switch to selected tab, or start typing to search";
+        if (!text) label = "Press Enter to switch to selected tab, or type > for actions";
         else if (looksLikeUrl(text)) label = `Open: ${toUrl(text)}`;
         else label = `Search for: ${text}`;
       }
       footer.textContent = "";
       footer.append(el("kbd", null, "↩"), el("span", null, label));
+      if (hint) footer.append(el("span", "ap-footer-hint", hint));
     }
 
     function select(idx, scroll = true) {
@@ -550,7 +857,7 @@
       select(next);
     }
 
-    // ----- actions -----
+    // ----- doing things -----
 
     // In overlay mode: open things in a new tab (Arc-style); Shift opens in place.
     // In page mode (the new-tab page): always replace this tab.
@@ -559,26 +866,67 @@
       return e?.shiftKey ? "current" : "new";
     }
 
-    async function activate(idx, e) {
+    function dismiss() {
+      // The overlay disappears; the new-tab page stays put until the background
+      // closes or navigates it (onClose there means "cancel", which closes the tab).
+      if (mode === "overlay") close();
+      else closed = true;
+    }
+
+    function screenFrame() {
+      const s = window.screen;
+      return { x: s.availLeft ?? 0, y: s.availTop ?? 0, width: s.availWidth, height: s.availHeight };
+    }
+
+    function splitWith(item) {
+      dismiss();
+      send({ type: "split", tabId: item.tabId, screen: screenFrame() });
+    }
+
+    function runAction(action) {
+      if (action.picker) return enterPicker(action.picker);
+      if (action.id === "copy-url") {
+        const url = mode === "overlay" ? location.href : ctx?.target?.url;
+        const ok = url && copyText(url);
+        dismiss();
+        if (mode === "overlay") toast(ok ? "Link copied" : "Couldn't copy the link", ok ? "link" : null);
+        else send({ type: "switchTab", tabId: ctx.target.id, closeSender: true, toast: ok ? "Link copied" : "Couldn't copy the link" });
+        return;
+      }
+      dismiss();
+      send({ type: "action", id: action.id, hours: action.hours });
+    }
+
+    function activate(idx, e) {
       const item = idx >= 0 ? items[idx] : null;
       const where = whereFor(e);
+
+      if (picker === "split") return item && splitWith(item);
+      if (picker === "archive") {
+        if (!item) return;
+        dismiss();
+        return send({ type: "reopenArchived", url: item.url, where });
+      }
+
+      if (item?.kind === "action") return runAction(item);
+      if (item?.kind === "tab" && e?.metaKey && ctx?.target && item.tabId !== ctx.target.id) return splitWith(item);
+
       let msg;
       if (item?.kind === "tab") {
         msg = { type: "switchTab", tabId: item.tabId, windowId: item.windowId, closeSender: mode === "page" };
       } else if (item?.kind === "history") {
         msg = { type: "open", url: item.url, where };
+      } else if (item?.kind === "archived") {
+        msg = { type: "reopenArchived", url: item.url, where };
       } else if (item?.kind === "suggest") {
         msg = { type: "search", text: item.title, where };
       } else {
         const text = input.value.trim();
-        if (!text) return;
+        if (!text || text.startsWith(">")) return;
         msg = looksLikeUrl(text) ? { type: "open", url: toUrl(text), where } : { type: "search", text, where };
       }
-      // The overlay disappears; the new-tab page stays put until it navigates
-      // (onClose there means "cancel", which would close the tab).
-      if (mode === "overlay") close();
-      else closed = true;
-      await send(msg);
+      dismiss();
+      send(msg);
     }
 
     // ----- events -----
@@ -613,13 +961,21 @@
             refresh(false);
           }
           break;
+        case "Backspace":
+          // Backspace in an empty picker goes back to the main palette.
+          if (picker && !input.value) {
+            e.preventDefault();
+            enterPicker(null);
+          }
+          break;
         case "Enter":
           e.preventDefault();
           activate(sel, e);
           break;
         case "Escape":
           e.preventDefault();
-          if (input.value && mode === "page") {
+          if (picker) enterPicker(null);
+          else if (input.value && mode === "page") {
             typed = "";
             input.value = "";
             sel = -1;
@@ -641,6 +997,12 @@
       else input.focus();
     });
 
+    input.placeholder = PLACEHOLDERS[null];
+    send({ type: "context" }).then((c) => {
+      if (closed || !c || c.error) return;
+      ctx = c;
+      if (typed.trim()) render(false);
+    });
     refresh(false);
     input.focus();
     requestAnimationFrame(() => input.focus());
@@ -656,5 +1018,5 @@
     };
   }
 
-  globalThis.ArcPalette = { mount };
+  globalThis.ArcPalette = { mount, toast, copyText };
 })();
